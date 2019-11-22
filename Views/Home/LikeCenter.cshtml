@@ -1,0 +1,60 @@
+<style>
+    .backgroundimg
+    {
+        background-image: url=("https://www.automobilemag.com/uploads/sites/11/2012/10/1990-Mazda-MX-5-Miata-front-view.jpg");
+    }
+</style>
+<h1>HERES the LIKE CEnter</h1>
+<h3>Add a Post or Like one Here!</h3>
+    
+    <a href="/Logout" class="btn btn-danger">Logout</a>
+@model Post
+<form action="/Add" method="post">
+
+    <div class="form-group">
+        <label>New Post Here</label>
+        <span asp-validation-for="PostDetail" style="color:yellow;"></span>
+        <input asp-for="PostDetail" class="form-control">
+    </div>
+    <input type="hidden" name="CreatorId" value="@ViewBag.User.UserId" class="form-control">
+    <input type="hidden" name="CreatorName" value="@ViewBag.User.Name" class="form-control">
+    <input type="submit" class="btn btn-info">
+</form>
+<div></div>
+<h3>Posts here</h3>
+@{
+    foreach(var eee in ViewBag.AllPosts)
+    {
+    <div class="border border-dark">
+        <p><a href="/ViewUser/@eee.CreatorId">@eee.CreatorName</a></p>
+        <p>@eee.PostDetail</p>
+        @{
+        bool isliked = false;
+        foreach(var pasta in eee.Likers)
+        {
+            if(pasta.UserId == ViewBag.User.UserId)
+            {
+                isliked = true;
+            }
+        }
+        if(isliked)
+        {
+            <p><a href="/unlike/@ViewBag.User.UserId/@eee.PostId">unLike</a></p>
+        }
+        else
+        {
+            <p><a href="/like/@ViewBag.User.UserId/@eee.PostId">Like</a></p>
+            
+        }
+    }
+        
+        <p><a href="/ViewLike/@eee.PostId">@eee.Likers.Count people</a> like this</p>
+        @if(ViewBag.User.UserId == eee.CreatorId)
+        {
+            <p><a href="/delete/@eee.PostId" class="btn btn-danger">delete post</a></p>
+        }
+    </div> 
+    }
+
+}
+<a href="/Logout" class="btn btn-danger">Logout</a>

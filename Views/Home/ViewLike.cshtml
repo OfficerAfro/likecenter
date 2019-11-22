@@ -1,0 +1,15 @@
+<a href="/DashboardRedir" class="btn btn-primary">Back to Like Center!</a>
+<p>@ViewBag.ThisPost.PostDetail</p>
+<h2>Likers</h2>
+
+@{
+    
+    foreach(var h in ViewBag.ThisPost.Likers)
+    {
+        <p>@h.User.Alias</p>
+    }
+
+
+}
+<h2>Creator</h2>
+<p>@ViewBag.ThisPost.CreatorName</p>

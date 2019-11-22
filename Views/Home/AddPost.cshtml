@@ -1,0 +1,14 @@
+    <a href="/DashboardRedir" class="btn btn-primary">Back to Like Center!</a>
+    <a href="/Logout" class="btn btn-danger">Logout</a>
+@model Post
+<form action="/Add" method="post">
+
+    <div class="form-group">
+        <label>The Duration of the event</label>
+        <span asp-validation-for="PostDetail" style="color:yellow;"></span>
+        <input asp-for="PostDetail" class="form-control">
+    </div>
+    <input type="hidden" name="CreatorId" value="@ViewBag.User.UserId" class="form-control">
+    <input type="hidden" name="CreatorName" value="@ViewBag.User.Name" class="form-control">
+    <input type="submit" class="btn btn-info">
+</form>
